@@ -60,5 +60,13 @@ namespace Market.Services
 
             return produtos;
         }
+
+        public void CadastrarProduto(Produto produto)
+        {
+            using (var connection = _dataconnection.GetConnection())
+            {
+
+            }
+        }
     }
 }
