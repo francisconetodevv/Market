@@ -1,5 +1,12 @@
 ﻿using Market.Data;
+using Market.Services;
 
-DatabaseHelper dataconnection = new DatabaseHelper();
+ProdutoService produtoService = new ProdutoService();
+var produtos = produtoService.ListarProdutos();
 
-dataconnection.Connection();
+foreach(var produto in produtos)
+{
+    Console.WriteLine(produto.Nome + " - " + produto.Categoria + " - " + produto.Marca + " - " + produto.PrecoUnitario);    
+}
+
+Console.ReadKey();
