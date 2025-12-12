@@ -65,7 +65,27 @@ namespace Market.Services
         {
             using (var connection = _dataconnection.GetConnection())
             {
+                connection.Open();
 
+                string sqlscript = "INSERT INTO [ListaComprasDB].[dbo].[Produtos] (Nome, Categoria, Marca, Descricao, PrecoUnitario) "  +
+                                                       "VALUES (@Nome, @Categoria, @Marca, @Descricao, @PrecoUnitario)";
+
+                using (var command = new SqlCommand(sqlscript, connection)){
+                    command.Parameters.AddWithValue("@Nome", produto.Nome);
+                    command.Parameters.AddWithValue("@Categoria", produto.Categoria);
+                    command.Parameters.AddWithValue("@Marca", produto.Marca);
+                    command.Parameters.AddWithValue("@PrecoUnitario", produto.PrecoUnitario);
+
+                    if (produto.Descricao != null)
+                    {
+                        command.Parameters.AddWithValue("@Descricao", produto.Descricao);
+                    } else
+                    {
+                        command.Parameters.AddWithValue("@Descricao", DBNull.Value);
+                    }
+
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }
